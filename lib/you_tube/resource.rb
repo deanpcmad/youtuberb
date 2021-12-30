@@ -31,7 +31,7 @@ module YouTube
     def handle_response(response)
       case response.status
       when 400
-        raise Error, "Error 400: Your request was malformed. '#{response.body["error"]["message"]}'"
+        raise Error, "Error 400: Your request was malformed. '#{response.body["error"]}'"
       when 401
         raise Error, "Error 401: You did not supply valid authentication credentials. '#{response.body["error"]["message"]}'"
       when 403
