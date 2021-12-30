@@ -14,8 +14,27 @@ gem 'youtuberb', require: "you_tube"
 
 ## Usage
 
-TODO: Write usage instructions here
+### Set Client Details
 
+Firstly you'll need to set an API Key and an Access Token. 
+
+```ruby
+@client = YouTube::Client.new(api_key: "", access_token: "")
+```
+
+### Videos
+
+```ruby
+@client.videos.get_by_id(user_id: 141981764)
+```
+
+### Playlists
+
+```ruby
+@client.playlists.list
+@client.playlists.create(title: "My Playlist")
+@client.playlists.delete(id: "playlist_id")
+```
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/deanpcmad/youtuberb.
