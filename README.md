@@ -9,7 +9,7 @@ YouTubeRB is a Ruby library for interacting with the YouTube Data v3 API.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'youtuberb', require: "you_tube"
+gem 'youtuberb'
 ```
 
 ## Usage
