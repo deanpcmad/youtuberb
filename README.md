@@ -2,7 +2,7 @@
 
 **This library is a work in progress**
 
-YouTubeRB is a Ruby library for intereacting with the YouTube Data v3 API.
+YouTubeRB is a Ruby library for interacting with the YouTube Data v3 API.
 
 ## Installation
 

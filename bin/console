@@ -15,7 +15,7 @@ require 'dotenv/load'
 # Pry.start
 
 # @client = YouTube::Client.new(client_id: ENV["CLIENT_ID"], access_token: ENV["ACCESS_TOKEN"])
-@client = YouTube::Client.new(api_key: ENV["API_KEY"])
+@client = YouTube::Client.new(api_key: ENV["API_KEY"], access_token: ENV["ACCESS_TOKEN"])
 
 require "irb"
 IRB.start(__FILE__)
