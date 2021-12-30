@@ -21,6 +21,10 @@ module YouTube
       VideosResource.new(self)
     end
 
+    def playlists
+      PlaylistsResource.new(self)
+    end
+
     def connection
       @connection ||= Faraday.new(BASE_URL) do |conn|
         conn.request :authorization, :Bearer, access_token

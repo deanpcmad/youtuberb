@@ -14,8 +14,10 @@ module YouTube
 
   autoload :ActivitiesResource, "you_tube/resources/activities"
   autoload :VideosResource, "you_tube/resources/videos"
+  autoload :PlaylistsResource, "you_tube/resources/playlists"
 
   autoload :Activity, "you_tube/objects/activity"
   autoload :Video, "you_tube/objects/video"
+  autoload :Playlist, "you_tube/objects/playlist"
 
 end
