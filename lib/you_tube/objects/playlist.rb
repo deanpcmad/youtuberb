@@ -10,11 +10,12 @@ module YouTube
         self.published_at = options["snippet"]["publishedAt"]
 
         if options["snippet"]["thumbnails"]
-          self.thumbnail_default  = options["snippet"]["thumbnails"]["default"]["url"]
-          self.thumbnail_medium   = options["snippet"]["thumbnails"]["medium"]["url"]
-          self.thumbnail_high     = options["snippet"]["thumbnails"]["high"]["url"]
-          self.thumbnail_standard = options["snippet"]["thumbnails"]["standard"]["url"]
-          self.thumbnail_maxres   = options["snippet"]["thumbnails"]["maxres"]["url"]
+          thumb = options["snippet"]["thumbnails"]
+          self.thumbnail_default  = thumb["default"]["url"]   if thumb["default"]
+          self.thumbnail_medium   = thumb["medium"]["url"]    if thumb["medium"]
+          self.thumbnail_high     = thumb["high"]["url"]      if thumb["high"]
+          self.thumbnail_standard = thumb["standard"]["url"]  if thumb["standard"]
+          self.thumbnail_maxres   = thumb["maxres"]["url"]    if thumb["maxres"]
         end
       end
 
