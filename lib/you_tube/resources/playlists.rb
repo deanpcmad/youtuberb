@@ -1,18 +1,19 @@
 module YouTube
   class PlaylistsResource < Resource
+
+    PARTS = "id,snippet,status"
     
-    # Returns Playlists owned by the authenticated user
+    # Returns Playlists either for a Channel or owned by the authenticated user
     # https://developers.google.com/youtube/v3/docs/playlists/list
-    def list
-      parts = ["id", "snippet", "status"]
-      response = get_request "playlists", params: {mine: true, part: parts.join(",")}
+    def list(channel_id: nil)
+      params = channel_id ? {channelId: channel_id} : {mine: true}
+      response = get_request "playlists", params: params.merge({part: PARTS})
       Collection.from_response(response, type: Playlist)
     end
 
     # Returns a Playlist for a given ID
     def retrieve(id:)
-      parts = ["id", "snippet", "status"]
-      response = get_request "playlists", params: {id: id, part: parts.join(",")}
+      response = get_request "playlists", params: {id: id, part: PARTS}
       Playlist.new(response.body["items"][0])
     end
 
