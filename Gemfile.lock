@@ -3,6 +3,7 @@ PATH
   specs:
     youtuberb (0.1.0)
       faraday (~> 1.7)
+      faraday-multipart (~> 1.0)
       faraday_middleware (~> 1.1)
 
 GEM
@@ -24,6 +25,8 @@ GEM
     faraday-em_synchrony (1.0.0)
     faraday-excon (1.1.0)
     faraday-httpclient (1.0.1)
+    faraday-multipart (1.0.3)
+      multipart-post (>= 1.2, < 3)
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
@@ -43,4 +46,4 @@ DEPENDENCIES
   youtuberb!
 
 BUNDLED WITH
-   2.2.33
+   2.3.5

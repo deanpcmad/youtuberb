@@ -24,5 +24,18 @@ module YouTube
       Video.new(response.body["items"][0])
     end
 
+    # Uploads a video
+    # Currently just uploads a video
+    # Needs more testing
+    # https://developers.google.com/youtube/v3/docs/videos/insert
+    def upload(file:)
+      payload = {}
+      payload[:media] = Faraday::Multipart::FilePart.new(file, "video/*")
+
+      response = client.connection_upload.post "videos", payload
+      
+      response.body
+    end
+
   end
 end

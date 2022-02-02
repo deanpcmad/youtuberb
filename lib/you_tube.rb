@@ -1,5 +1,6 @@
 require "faraday"
 require "faraday_middleware"
+require "faraday/multipart"
 require "json"
 
 require_relative "you_tube/version"
