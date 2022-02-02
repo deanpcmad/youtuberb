@@ -1,18 +1,19 @@
 module YouTube
   class PlaylistItemsResource < Resource
+
+    PARTS = "id,snippet,status"
     
     # Returns Playlist Items for a Playlist
     # https://developers.google.com/youtube/v3/docs/playlistItems/list
     def list(playlist_id:)
-      parts = ["id", "snippet", "status"]
-      response = get_request "playlistItems", params: {playlistId: playlist_id, part: parts.join(",")}
+      response = get_request "playlistItems", params: {playlistId: playlist_id, part: PARTS}
       Collection.from_response(response, type: PlaylistItem)
     end
 
     # Returns a Playlist Item for a given ID
+    # https://developers.google.com/youtube/v3/docs/playlistItems/list
     def retrieve(id:)
-      parts = ["id", "snippet", "status"]
-      response = get_request "playlistItems", params: {id: id, part: parts.join(",")}
+      response = get_request "playlistItems", params: {id: id, part: PARTS}
       PlaylistItem.new(response.body["items"][0])
     end
 
@@ -52,7 +53,7 @@ module YouTube
     end
 
     # Deletes a Playlist Item
-    # https://developers.google.com/youtube/v3/docs/plaulistItems/delete
+    # https://developers.google.com/youtube/v3/docs/playlistItems/delete
     def delete(id:)
       delete_request("playlistItems?id=#{id}")
     end
