@@ -32,7 +32,9 @@ Firstly you'll need to set an API Key and an Access Token.
 
 ```ruby
 @client.playlists.list
+@client.playlists.retrieve(id: "playlist_id")
 @client.playlists.create(title: "My Playlist")
+@client.playlists.update(id: "abc123", title: "My Playlist", privacy_status: "public")
 @client.playlists.delete(id: "playlist_id")
 ```
 ## Contributing
