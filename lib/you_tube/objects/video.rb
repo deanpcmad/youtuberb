@@ -5,8 +5,8 @@ module YouTube
       super options
 
       if options["snippet"]
-        self.title       = options["snippet"]["title"]
-        self.description = options["snippet"]["description"]
+        self.title        = options["snippet"]["title"]
+        self.description  = options["snippet"]["description"]
         self.published_at = options["snippet"]["publishedAt"]
         
         if options["snippet"]["thumbnails"]

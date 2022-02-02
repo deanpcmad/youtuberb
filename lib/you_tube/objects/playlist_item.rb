@@ -1,5 +1,5 @@
 module YouTube
-  class Playlist < Object
+  class PlaylistItem < Object
 
     def initialize(options = {})
       super options
