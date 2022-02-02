@@ -8,14 +8,26 @@ module YouTube
         self.title        = options["snippet"]["title"]
         self.description  = options["snippet"]["description"]
         self.published_at = options["snippet"]["publishedAt"]
+        self.channel_id   = options["snippet"]["channelId"]
         
         if options["snippet"]["thumbnails"]
-          self.thumbnail_default  = options["snippet"]["thumbnails"]["default"]["url"]
-          self.thumbnail_medium   = options["snippet"]["thumbnails"]["medium"]["url"]
-          self.thumbnail_high     = options["snippet"]["thumbnails"]["high"]["url"]
-          self.thumbnail_standard = options["snippet"]["thumbnails"]["standard"]["url"]
-          self.thumbnail_maxres   = options["snippet"]["thumbnails"]["maxres"]["url"]
+          thumb = options["snippet"]["thumbnails"]
+          self.thumbnail_default  = thumb["default"]["url"]   if thumb["default"]
+          self.thumbnail_medium   = thumb["medium"]["url"]    if thumb["medium"]
+          self.thumbnail_high     = thumb["high"]["url"]      if thumb["high"]
+          self.thumbnail_standard = thumb["standard"]["url"]  if thumb["standard"]
+          self.thumbnail_maxres   = thumb["maxres"]["url"]    if thumb["maxres"]
         end
+      end
+
+      # Is a Video is blocked in any countries?
+      if options["contentDetails"]
+        self.blocked = !options["contentDetails"]["regionRestriction"].nil?
+      end
+
+      if options["status"]
+        self.upload_status  = options["status"]["uploadStatus"]
+        self.privacy_status = options["status"]["privacyStatus"]
       end
     end
 
