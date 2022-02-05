@@ -13,11 +13,13 @@ module YouTube
   autoload :Object, "you_tube/object"
 
   autoload :ActivitiesResource, "you_tube/resources/activities"
+  autoload :ChannelsResource, "you_tube/resources/channels"
   autoload :VideosResource, "you_tube/resources/videos"
   autoload :PlaylistsResource, "you_tube/resources/playlists"
   autoload :PlaylistItemsResource, "you_tube/resources/playlist_items"
 
   autoload :Activity, "you_tube/objects/activity"
+  autoload :Channel, "you_tube/objects/channel"
   autoload :Video, "you_tube/objects/video"
   autoload :Playlist, "you_tube/objects/playlist"
   autoload :PlaylistItem, "you_tube/objects/playlist_item"

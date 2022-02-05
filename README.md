@@ -23,6 +23,19 @@ An Access Token will be an OAuth2 token generated after authentication.
 @client = YouTube::Client.new(api_key: "", access_token: "")
 ```
 
+### Channels
+
+```ruby
+# Get the Channel details of the currently authenticated user
+@client.channels.mine
+
+# Get a Channel by ID
+@client.channels.retrieve(id: "channel_id")
+
+# Get a Channel by username
+@client.channels.retrieve(username: "username")
+```
+
 ### Videos
 
 ```ruby

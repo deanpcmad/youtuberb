@@ -17,6 +17,10 @@ module YouTube
       ActivitiesResource.new(self)
     end
 
+    def channels
+      ChannelsResource.new(self)
+    end
+
     def videos
       VideosResource.new(self)
     end
