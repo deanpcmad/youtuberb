@@ -31,10 +31,18 @@ Firstly you'll need to set an API Key and an Access Token.
 ### Playlists
 
 ```ruby
+# Playlists created by the authenticated user
 @client.playlists.list
+
+# Playlists for a Channel
+@client.playlists.list(channel_id: "channel")
+
+# Return a set number of results & use the page_token to select the next/previous page
+@client.playlists.list(max_results: 5, page_token: "page_token")
+
 @client.playlists.retrieve(id: "playlist_id")
 @client.playlists.create(title: "My Playlist")
-@client.playlists.update(id: "abc123", title: "My Playlist", privacy_status: "public")
+@client.playlists.update(id: "playlist_id", title: "My Playlist", privacy_status: "public")
 @client.playlists.delete(id: "playlist_id")
 ```
 ## Contributing
