@@ -41,14 +41,5 @@ module YouTube
       end
     end
 
-    # Uses Faraday Multipart (lostisland/faraday-multipart)
-    def connection_upload
-      @connection ||= Faraday.new("https://www.googleapis.com/upload/youtube/v3/") do |conn|
-        conn.request :authorization, :Bearer, access_token
-        conn.request :multipart
-        conn.response :json, content_type: "application/json"
-      end
-    end
-
   end
 end
