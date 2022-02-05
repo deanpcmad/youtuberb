@@ -13,10 +13,6 @@ module YouTube
       @stubs = stubs
     end
 
-    def activities
-      ActivitiesResource.new(self)
-    end
-
     def channels
       ChannelsResource.new(self)
     end
