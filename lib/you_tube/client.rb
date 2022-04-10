@@ -34,7 +34,6 @@ module YouTube
         conn.request :authorization, :Bearer, access_token
         conn.request :json
 
-        conn.response :dates
         conn.response :json, content_type: "application/json"
 
         conn.adapter adapter, @stubs
