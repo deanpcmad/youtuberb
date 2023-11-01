@@ -43,12 +43,6 @@ An Access Token will be an OAuth2 token generated after authentication.
 ### Videos
 
 ```ruby
-# To get videos for a channel, first grab the channel details
-channel = @client.channels.retrieve(id: "channel_id")
-# Then use the Playlist Items endpoint to get the Videos
-@client.playlist_items.list playlist_id: channel.contentDetails.relatedPlaylists.uploads
-
-
 # Get a single video
 @client.videos.list(id: "abc123")
 # => #<YouTube::Video...
@@ -64,6 +58,19 @@ channel = @client.channels.retrieve(id: "channel_id")
 # Get a video owned by the current user. This retrieves extra information so will only work on videos owned by the current user.
 @client.videos.retrieve(id: "abc123")
 # => #<YouTube::Video...
+```
+
+#### Getting a list of Videos for a Channel
+
+```ruby
+# First, grab the Channel details
+channel = @client.channels.retrieve(id: "channel_id")
+
+# Then use the Playlist Items endpoint to get the Videos
+@client.playlist_items.list playlist_id: channel.contentDetails.relatedPlaylists.uploads
+
+# Or use the Search endpoint
+@client.search.list channelId: channel.id
 ```
 
 ### Playlists
@@ -83,6 +90,7 @@ channel = @client.channels.retrieve(id: "channel_id")
 @client.playlists.update(id: "playlist_id", title: "My Playlist", privacy_status: "public")
 @client.playlists.delete(id: "playlist_id")
 ```
+
 ### Playlist Items
 
 ```ruby
@@ -97,6 +105,21 @@ channel = @client.channels.retrieve(id: "channel_id")
 @client.playlist_items.update(id: "playlist_item_id", playlist_id: "playlist_id", video_id: "video_id")
 
 @client.playlist_items.delete(id: "playlist_id")
+```
+
+### Search
+
+For a full list of parameters, see the [YouTube API Docs](https://developers.google.com/youtube/v3/docs/search/list).
+
+```ruby
+# Search YouTube for a term
+@client.search.list(q: "search term")
+
+# Restrict the search to a channel
+@client.search.list(channelId: "channel")
+
+# Search a channel for videos only and ordered by date
+@client.search.list(channelId: "channel", type: "video", order: "date")
 ```
 
 ## Contributing
