@@ -9,7 +9,7 @@ module YouTube
         self.description  = options["snippet"]["description"]
         self.published_at = options["snippet"]["publishedAt"]
         self.channel_id   = options["snippet"]["channelId"]
-        
+
         if options["snippet"]["thumbnails"]
           thumb = options["snippet"]["thumbnails"]
           self.thumbnail_default  = thumb["default"]["url"]   if thumb["default"]
@@ -23,6 +23,12 @@ module YouTube
       # Is a Video is blocked in any countries?
       if options["contentDetails"]
         self.blocked = !options["contentDetails"]["regionRestriction"].nil?
+      end
+
+      if options["liveStreamingDetails"]
+        self.live_stream = options["liveStreamingDetails"]["actualStartTime"].present?
+      else
+        self.live_stream = false
       end
 
       if options["status"]
