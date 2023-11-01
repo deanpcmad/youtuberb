@@ -43,6 +43,12 @@ An Access Token will be an OAuth2 token generated after authentication.
 ### Videos
 
 ```ruby
+# To get videos for a channel, first grab the channel details
+channel = @client.channels.retrieve(id: "channel_id")
+# Then use the Playlist Items endpoint to get the Videos
+@client.playlist_items.list playlist_id: channel.contentDetails.relatedPlaylists.uploads
+
+
 # Get a single video
 @client.videos.list(id: "abc123")
 
