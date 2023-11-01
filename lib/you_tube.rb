@@ -21,5 +21,6 @@ module YouTube
   autoload :Video, "you_tube/objects/video"
   autoload :Playlist, "you_tube/objects/playlist"
   autoload :PlaylistItem, "you_tube/objects/playlist_item"
+  autoload :SearchResult, "you_tube/objects/search_result"
 
 end
