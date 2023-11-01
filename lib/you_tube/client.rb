@@ -4,13 +4,10 @@ module YouTube
 
     attr_reader :api_key, :access_token, :adapter
 
-    def initialize(api_key:, access_token:, adapter: Faraday.default_adapter, stubs: nil)
+    def initialize(api_key:, access_token: nil, adapter: Faraday.default_adapter)
       @api_key = api_key
       @access_token = access_token
       @adapter = adapter
-
-      # Test stubs for requests
-      @stubs = stubs
     end
 
     def channels

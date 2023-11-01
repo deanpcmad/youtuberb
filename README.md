@@ -16,10 +16,14 @@ gem 'youtuberb'
 
 ### Set Client Details
 
-Firstly you'll need to set an API Key and an Access Token. 
-An Access Token will be an OAuth2 token generated after authentication. 
+Firstly you'll need to set an API Key. A user Access Token is required to access private data.
+An Access Token will be an OAuth2 token generated after authentication.
 
 ```ruby
+# To access public data, just an API Key is required
+@client = YouTube::Client.new(api_key: "")
+
+# Or to access data for a user, an Access Token is also required
 @client = YouTube::Client.new(api_key: "", access_token: "")
 ```
 
