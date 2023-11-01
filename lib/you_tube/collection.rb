@@ -7,7 +7,7 @@ module YouTube
 
       new(
         data: body["items"].map { |attrs| type.new(attrs) },
-        total: body["pageInfo"]["totalResults"],
+        total: body["items"].count,
         next_page_token: body["nextPageToken"],
         prev_page_token: body["prevPageToken"],
         # cursor: body.dig("pagination", "cursor")
