@@ -1,13 +1,27 @@
 module YouTube
   class VideosResource < Resource
 
-    PARTS = "id,contentDetails,snippet,statistics,status"
-    AUTH_PARTS = "id,contentDetails,fileDetails,processingDetails,snippet,statistics,status,suggestions"
-    
+    PARTS = "id,snippet,contentDetails,liveStreamingDetails,statistics,status"
+    AUTH_PARTS = "id,snippet,contentDetails,fileDetails,processingDetails,statistics,status,suggestions"
+
     # Retrieves Videos by ID. Can be comma separated to retrieve multiple.
-    def list(id:)
-      response = get_request "videos", params: {id: id, part: PARTS}
-      Collection.from_response(response, type: Video)
+    def list(id: nil, ids: nil)
+      raise "Either id or ids is required" unless !id.nil? || !ids.nil?
+
+      if id
+        response = get_request("videos", params: {id: id, part: PARTS})
+      elsif ids
+        response = get_request("videos", params: {id: ids.join(","), part: PARTS})
+      end
+
+      body = response.body["items"]
+      if body.count == 1
+        Video.new body[0]
+      elsif body.count > 1
+        Collection.from_response(response, type: Video)
+      else
+        return nil
+      end
     end
 
     # Retrieves liked Videos for the currently authenticated user

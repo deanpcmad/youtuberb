@@ -51,15 +51,19 @@ channel = @client.channels.retrieve(id: "channel_id")
 
 # Get a single video
 @client.videos.list(id: "abc123")
+# => #<YouTube::Video...
 
 # Get multiple videos
-@client.videos.list(id: "abc123,123abc")
+@client.videos.list(ids: ["abc123", "123abc"])
+# => #<YouTube::Collection...
 
 # Liked videos for the currently authenticated user
 @client.videos.liked
+# => #<YouTube::Collection...
 
 # Get a video owned by the current user. This retrieves extra information so will only work on videos owned by the current user.
 @client.videos.retrieve(id: "abc123")
+# => #<YouTube::Video...
 ```
 
 ### Playlists
