@@ -15,6 +15,7 @@ module YouTube
   autoload :VideosResource, "you_tube/resources/videos"
   autoload :PlaylistsResource, "you_tube/resources/playlists"
   autoload :PlaylistItemsResource, "you_tube/resources/playlist_items"
+  autoload :SearchResource, "you_tube/resources/search"
 
   autoload :Channel, "you_tube/objects/channel"
   autoload :Video, "you_tube/objects/video"
