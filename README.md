@@ -38,6 +38,10 @@ An Access Token will be an OAuth2 token generated after authentication.
 
 # Get a Channel by username
 @client.channels.retrieve(username: "username")
+
+# Retrieve a list of videos for a Channel
+# Returns a collection of SearchResult's because YouTube don't have a direct API to view all videos on a Channel
+@client.channels.videos(id: "channel_id")
 ```
 
 ### Videos

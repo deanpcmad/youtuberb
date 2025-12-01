@@ -22,5 +22,10 @@ module YouTube
       Channel.new(response.body["items"][0])
     end
 
+    def videos(id:, **options)
+      response = get_request "search", params: {channelId: id, part: "id,snippet"}.merge(options)
+      Collection.from_response(response, type: SearchResult)
+    end
+
   end
 end
