@@ -16,11 +16,13 @@ module YouTube
   autoload :PlaylistsResource, "you_tube/resources/playlists"
   autoload :PlaylistItemsResource, "you_tube/resources/playlist_items"
   autoload :SearchResource, "you_tube/resources/search"
+  autoload :LiveBroadcastsResource, "you_tube/resources/live_broadcasts"
 
   autoload :Channel, "you_tube/objects/channel"
   autoload :Video, "you_tube/objects/video"
   autoload :Playlist, "you_tube/objects/playlist"
   autoload :PlaylistItem, "you_tube/objects/playlist_item"
   autoload :SearchResult, "you_tube/objects/search_result"
+  autoload :LiveBroadcast, "you_tube/objects/live_broadcast"
 
 end

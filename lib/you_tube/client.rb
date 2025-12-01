@@ -30,6 +30,10 @@ module YouTube
       SearchResource.new(self)
     end
 
+    def live_broadcasts
+      LiveBroadcastsResource.new(self)
+    end
+
     def connection
       @connection ||= Faraday.new(BASE_URL) do |conn|
         conn.request :authorization, :Bearer, access_token

@@ -122,6 +122,16 @@ For a full list of parameters, see the [YouTube API Docs](https://developers.goo
 @client.search.list(channelId: "channel", type: "video", order: "date")
 ```
 
+### Live Broadcasts
+
+```ruby
+# Live Broadcasts for the currently authenticated user
+@client.live_broadcasts.list
+
+# Live Broadcasts by status
+@client.live_broadcasts.list status: "active"
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/deanpcmad/youtuberb.

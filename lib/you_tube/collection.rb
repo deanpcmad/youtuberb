@@ -10,7 +10,6 @@ module YouTube
         total: body["items"].count,
         next_page_token: body["nextPageToken"],
         prev_page_token: body["prevPageToken"],
-        # cursor: body.dig("pagination", "cursor")
       )
     end
 
