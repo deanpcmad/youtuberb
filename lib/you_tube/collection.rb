@@ -19,5 +19,17 @@ module YouTube
       @next_page_token = next_page_token
       @prev_page_token = prev_page_token
     end
+
+    def each(&block)
+      data.each(&block)
+    end
+
+    def first
+      data.first
+    end
+
+    def last
+      data.last
+    end
   end
 end
