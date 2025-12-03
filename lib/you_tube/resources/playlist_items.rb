@@ -1,8 +1,8 @@
 module YouTube
   class PlaylistItemsResource < Resource
 
-    PARTS = "id,snippet,status"
-    
+    PARTS = "id,snippet,status,contentDetails"
+
     # Returns Playlist Items for a Playlist
     # https://developers.google.com/youtube/v3/docs/playlistItems/list
     def list(playlist_id:)
@@ -30,7 +30,7 @@ module YouTube
       attrs[:snippet][:position] = attributes[:position]
 
       response = post_request("playlistItems?part=id,snippet,status", body: attrs)
-      
+
       PlaylistItem.new(response.body) if response.success?
     end
 
@@ -48,7 +48,7 @@ module YouTube
       attrs[:snippet][:position] = attributes[:position]
 
       response = put_request("playlistItems?part=id,snippet,status", body: attrs)
-      
+
       PlaylistItem.new(response.body) if response.success?
     end
 
