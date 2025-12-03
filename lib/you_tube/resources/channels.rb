@@ -10,12 +10,13 @@ module YouTube
       Channel.new(response.body["items"][0])
     end
 
-    # Retrieve a Channel by its ID or Username
-    def retrieve(id: nil, username: nil)
+    # Retrieve a Channel by its ID, Username or Handle (@username)
+    def retrieve(id: nil, username: nil, handle: nil)
       attrs = {}
       attrs[:id] = id if id
       attrs[:forUsername] = username if username
-      raise ArgumentError, "Must provide either an ID or Username" if attrs.empty?
+      attrs[:forHandle] = handle if handle
+      raise ArgumentError, "Must provide either an ID, Username or Handle" if attrs.empty?
 
       response = get_request "channels", params: attrs.merge({part: PARTS})
       return nil if response.body["pageInfo"]["totalResults"] == 0
