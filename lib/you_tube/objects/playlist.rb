@@ -1,20 +1,14 @@
 module YouTube
   class Playlist < Object
     include ThumbnailExtractor
+    include SnippetExtractor
+    include StatusExtractor
 
     def initialize(options = {})
       super options
 
-      if options["snippet"]
-        self.title        = options["snippet"]["title"]
-        self.description  = options["snippet"]["description"]
-        self.published_at = options["snippet"]["publishedAt"]
-        extract_thumbnails(options["snippet"])
-      end
-
-      if options["status"]
-        self.privacy_status = options["status"]["privacyStatus"]
-      end
+      extract_snippet(options["snippet"])
+      extract_status(options["status"])
     end
 
   end
