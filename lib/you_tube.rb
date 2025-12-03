@@ -10,6 +10,7 @@ module YouTube
   autoload :Error, "you_tube/error"
   autoload :Resource, "you_tube/resource"
   autoload :Object, "you_tube/object"
+  autoload :ThumbnailExtractor, "you_tube/objects/thumbnail_extractor"
 
   autoload :ChannelsResource, "you_tube/resources/channels"
   autoload :VideosResource, "you_tube/resources/videos"
