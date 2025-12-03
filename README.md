@@ -67,6 +67,52 @@ An Access Token will be an OAuth2 token generated after authentication.
 # => #<YouTube::Video...
 ```
 
+#### Uploading Videos
+
+Videos can be uploaded using the resumable upload protocol, which is ideal for large files and provides reliable chunk-based uploads.
+
+**Note:** Video uploads require OAuth2 authentication. Use an access token instead of just an API key.
+
+```ruby
+# Simple upload with just title
+video = @client.videos.upload(
+  file: "/path/to/video.mp4",
+  title: "My Awesome Video"
+)
+
+# Upload with full metadata
+video = @client.videos.upload(
+  file: "/path/to/video.mp4",
+  title: "Ruby Tutorial",
+  description: "Learn Ruby programming",
+  privacy_status: "unlisted",  # 'public', 'unlisted', or 'private'
+  tags: ["ruby", "programming", "tutorial"],
+  category_id: "28"  # Science & Technology
+)
+
+# Using a File object
+File.open("video.mp4", "rb") do |file|
+  video = @client.videos.upload(
+    file: file,
+    title: "My Video"
+  )
+end
+
+# Access the uploaded video details
+puts video.id           # => "dQw4w9WgXcQ"
+puts video.title        # => "My Awesome Video"
+puts video.privacy_status # => "unlisted"
+```
+
+**Upload Parameters:**
+- `file` (required) - File path as string or File object
+- `title` (required) - Video title
+- `description` - Video description
+- `privacy_status` - 'public', 'unlisted', or 'private' (default: 'private')
+- `tags` - Array of keyword tags
+- `category_id` - YouTube category ID (see [category list](https://developers.google.com/youtube/v3/docs/videoCategories/list))
+- `chunk_size` - Upload chunk size in bytes (default: 5242880 / 5MB)
+
 #### Getting a list of Videos for a Channel
 
 ```ruby
@@ -80,6 +126,28 @@ channel = @client.channels.retrieve(id: "channel_id")
 @client.search.list channelId: channel.id
 ```
 
+### Pagination
+
+Collections support pagination through automatic page token management:
+
+```ruby
+# Get first page of results
+videos = @client.search.list(q: "ruby", maxResults: 10)
+
+# Check if there's a next page
+if videos.has_next_page?
+  next_page = videos.next_page
+  videos.each { |v| puts v.title }
+end
+
+# Check if there's a previous page
+if videos.has_prev_page?
+  prev_page = videos.prev_page
+end
+```
+
+**Note:** The `next_page` and `prev_page` methods automatically preserve the original query parameters and only change the page token.
+
 ### Playlists
 
 ```ruby
@@ -89,8 +157,11 @@ channel = @client.channels.retrieve(id: "channel_id")
 # Playlists for a Channel
 @client.playlists.list(channel_id: "channel")
 
-# Return a set number of results & use the page_token to select the next/previous page
-@client.playlists.list(max_results: 5, page_token: "page_token")
+# Return a set number of results & use pagination
+playlists = @client.playlists.list(max_results: 5)
+if playlists.has_next_page?
+  next_playlists = playlists.next_page
+end
 
 @client.playlists.retrieve(id: "playlist_id")
 @client.playlists.create(title: "My Playlist")

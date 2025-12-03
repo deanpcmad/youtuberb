@@ -30,7 +30,17 @@ module YouTube
 
     def handle_response(response)
       case response.status
+      when 308
+        # 308 Permanent Redirect - used in resumable uploads to indicate more data expected
+        return response
       when 400
+        # Check for specific error reasons that should have better messages
+        if response.body.is_a?(Hash) && response.body["error"].is_a?(Hash)
+          error_reason = response.body["error"]["errors"]&.first&.dig("reason")
+          if error_reason == "uploadLimitExceeded"
+            raise Error, "Error 400: Upload limit exceeded. The account has reached its upload quota. '#{response.body["error"]["message"]}'"
+          end
+        end
         raise Error, "Error 400: Your request was malformed. '#{response.body["error"]}'"
       when 401
         raise Error, "Error 401: You did not supply valid authentication credentials. '#{response.body["error"]["message"]}'"
