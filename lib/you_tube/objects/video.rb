@@ -27,7 +27,7 @@ module YouTube
       end
 
       if options["liveStreamingDetails"]
-        self.live_stream = options["liveStreamingDetails"]["actualStartTime"].present?
+        self.live_stream = !options["liveStreamingDetails"]["actualStartTime"].nil? && options["liveStreamingDetails"]["actualStartTime"] != ""
       else
         self.live_stream = false
       end

@@ -22,7 +22,9 @@ module YouTube
     # Returns a Playlist for a given ID
     def retrieve(id:)
       response = get_request "playlists", params: {id: id, part: PARTS}
-      Playlist.new(response.body["items"][0])
+      items = response.body["items"]
+      return nil if items.nil? || items.empty?
+      Playlist.new(items[0])
     end
 
     # Creates a Playlist
@@ -40,8 +42,7 @@ module YouTube
       attrs[:status][:privacyStatus]    = attributes[:privacy_status]
 
       response = post_request("playlists?part=id,snippet,status", body: attrs)
-      
-      Playlist.new(response.body) if response.success?
+      Playlist.new(response.body)
     end
 
     # Updates a Playlist. ID and Title are required.
@@ -60,8 +61,7 @@ module YouTube
       attrs[:status][:privacyStatus]    = attributes[:privacy_status]
 
       response = put_request("playlists?part=id,snippet,status", body: attrs)
-      
-      Playlist.new(response.body) if response.success?
+      Playlist.new(response.body)
     end
 
     # Deletes a Playlist

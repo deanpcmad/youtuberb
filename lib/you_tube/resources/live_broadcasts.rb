@@ -18,8 +18,9 @@ module YouTube
     # on videos for an authenticated user
     def retrieve(id:)
       response = get_request "liveBroadcasts", params: {id: id, part: PARTS}
-      return nil if response.body["items"].count == 0
-      LiveBroadcast.new(response.body["items"][0])
+      items = response.body["items"]
+      return nil if items.nil? || items.empty?
+      LiveBroadcast.new(items[0])
     end
 
   end

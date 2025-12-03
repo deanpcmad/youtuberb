@@ -14,7 +14,9 @@ module YouTube
     # https://developers.google.com/youtube/v3/docs/playlistItems/list
     def retrieve(id:)
       response = get_request "playlistItems", params: {id: id, part: PARTS}
-      PlaylistItem.new(response.body["items"][0])
+      items = response.body["items"]
+      return nil if items.nil? || items.empty?
+      PlaylistItem.new(items[0])
     end
 
     # Creates a Playlist Item
@@ -30,8 +32,7 @@ module YouTube
       attrs[:snippet][:position] = attributes[:position]
 
       response = post_request("playlistItems?part=id,snippet,status", body: attrs)
-
-      PlaylistItem.new(response.body) if response.success?
+      PlaylistItem.new(response.body)
     end
 
     # Updates a Playlist Item. ID, Playlist ID and Video ID are required.
@@ -48,8 +49,7 @@ module YouTube
       attrs[:snippet][:position] = attributes[:position]
 
       response = put_request("playlistItems?part=id,snippet,status", body: attrs)
-
-      PlaylistItem.new(response.body) if response.success?
+      PlaylistItem.new(response.body)
     end
 
     # Deletes a Playlist Item

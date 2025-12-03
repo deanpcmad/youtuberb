@@ -6,8 +6,9 @@ module YouTube
     # Retrieve the channel of the currently authenticated user
     def mine
       response = get_request "channels", params: {mine: true, part: PARTS}
-      return nil if response.body["pageInfo"]["totalResults"] == 0
-      Channel.new(response.body["items"][0])
+      items = response.body["items"]
+      return nil if items.nil? || items.empty?
+      Channel.new(items[0])
     end
 
     # Retrieve a Channel by its ID, Username or Handle (@username)
@@ -19,8 +20,9 @@ module YouTube
       raise ArgumentError, "Must provide either an ID, Username or Handle" if attrs.empty?
 
       response = get_request "channels", params: attrs.merge({part: PARTS})
-      return nil if response.body["pageInfo"]["totalResults"] == 0
-      Channel.new(response.body["items"][0])
+      items = response.body["items"]
+      return nil if items.nil? || items.empty?
+      Channel.new(items[0])
     end
 
     def videos(id:, **options)

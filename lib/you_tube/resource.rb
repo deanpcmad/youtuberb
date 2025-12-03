@@ -47,7 +47,7 @@ module YouTube
       when 503
         raise Error, "Error 503: You have been rate limited for sending more than 20 requests per second. '#{response.body["error"]["message"]}'"
       when 204
-        # 204 is a response for success on Twitch's API
+        # 204 No Content - successful response with no body
         return true
       end
 
