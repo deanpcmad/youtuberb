@@ -1,5 +1,7 @@
 module YouTube
   class Collection
+    include Enumerable
+
     attr_reader :data, :total, :next_page_token, :prev_page_token
 
     def self.from_response(response, type:)
