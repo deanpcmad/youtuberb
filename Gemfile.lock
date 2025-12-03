@@ -1,22 +1,26 @@
 PATH
   remote: .
   specs:
-    youtuberb (0.2.1)
+    youtuberb (0.2.2)
       faraday (~> 2.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    base64 (0.2.0)
     dotenv (2.7.6)
-    faraday (2.8.1)
-      base64
-      faraday-net_http (>= 2.0, < 3.1)
-      ruby2_keywords (>= 0.0.4)
-    faraday-net_http (3.0.2)
+    faraday (2.14.0)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
+    faraday-net_http (3.4.2)
+      net-http (~> 0.5)
+    json (2.16.0)
+    logger (1.7.0)
     minitest (5.20.0)
+    net-http (0.8.0)
+      uri (>= 0.11.1)
     rake (13.0.6)
-    ruby2_keywords (0.0.5)
+    uri (1.1.1)
 
 PLATFORMS
   x86_64-linux
