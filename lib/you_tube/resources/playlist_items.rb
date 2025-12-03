@@ -5,9 +5,19 @@ module YouTube
 
     # Returns Playlist Items for a Playlist
     # https://developers.google.com/youtube/v3/docs/playlistItems/list
-    def list(playlist_id:)
-      response = get_request "playlistItems", params: {playlistId: playlist_id, part: PARTS}
-      Collection.from_response(response, type: PlaylistItem)
+    def list(playlist_id:, **options)
+      params = {playlistId: playlist_id, part: PARTS}.merge(options)
+      response = get_request "playlistItems", params: params
+
+      next_callback = ->(token) { list(playlist_id: playlist_id, page_token: token, **options) }
+      prev_callback = ->(token) { list(playlist_id: playlist_id, page_token: token, **options) }
+
+      Collection.from_response(
+        response,
+        type: PlaylistItem,
+        next_page_callback: next_callback,
+        prev_page_callback: prev_callback
+      )
     end
 
     # Returns a Playlist Item for a given ID

@@ -26,8 +26,18 @@ module YouTube
     end
 
     def videos(id:, **options)
-      response = get_request "search", params: {channelId: id, part: "id,snippet"}.merge(options)
-      Collection.from_response(response, type: SearchResult)
+      params = {channelId: id, part: "id,snippet"}.merge(options)
+      response = get_request "search", params: params
+
+      next_callback = ->(token) { videos(id: id, page_token: token, **options) }
+      prev_callback = ->(token) { videos(id: id, page_token: token, **options) }
+
+      Collection.from_response(
+        response,
+        type: SearchResult,
+        next_page_callback: next_callback,
+        prev_page_callback: prev_callback
+      )
     end
 
   end

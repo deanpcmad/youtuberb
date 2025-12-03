@@ -4,14 +4,24 @@ module YouTube
     PARTS = "id,snippet,contentDetails,status"
 
     # Retrieves Live Broadcasts by ID or for the currently authenticated user
-    def list(status: nil)
+    def list(status: nil, **options)
       if status
-        response = get_request("liveBroadcasts", params: {broadcastStatus: status, part: PARTS})
+        params = {broadcastStatus: status, part: PARTS}.merge(options)
       else
-        response = get_request("liveBroadcasts", params: {mine: true, part: PARTS})
+        params = {mine: true, part: PARTS}.merge(options)
       end
 
-      Collection.from_response(response, type: LiveBroadcast)
+      response = get_request("liveBroadcasts", params: params)
+
+      next_callback = ->(token) { list(status: status, page_token: token, **options) }
+      prev_callback = ->(token) { list(status: status, page_token: token, **options) }
+
+      Collection.from_response(
+        response,
+        type: LiveBroadcast,
+        next_page_callback: next_callback,
+        prev_page_callback: prev_callback
+      )
     end
 
     # Retrieves a Video by the ID. This retrieves extra information so will only work

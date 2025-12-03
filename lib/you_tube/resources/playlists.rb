@@ -16,7 +16,16 @@ module YouTube
       attrs[:pageToken]  = page_token  if page_token
 
       response = get_request "playlists", params: attrs.merge({part: PARTS})
-      Collection.from_response(response, type: Playlist)
+
+      next_callback = ->(token) { list(channel_id: channel_id, page_token: token, max_results: max_results) }
+      prev_callback = ->(token) { list(channel_id: channel_id, page_token: token, max_results: max_results) }
+
+      Collection.from_response(
+        response,
+        type: Playlist,
+        next_page_callback: next_callback,
+        prev_page_callback: prev_callback
+      )
     end
 
     # Returns a Playlist for a given ID

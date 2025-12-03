@@ -25,9 +25,19 @@ module YouTube
     end
 
     # Retrieves liked Videos for the currently authenticated user
-    def liked
-      response = get_request "videos", params: {myRating: "like", part: PARTS}
-      Collection.from_response(response, type: Video)
+    def liked(**options)
+      params = {myRating: "like", part: PARTS}.merge(options)
+      response = get_request "videos", params: params
+
+      next_callback = ->(token) { liked(page_token: token, **options) }
+      prev_callback = ->(token) { liked(page_token: token, **options) }
+
+      Collection.from_response(
+        response,
+        type: Video,
+        next_page_callback: next_callback,
+        prev_page_callback: prev_callback
+      )
     end
 
     # Retrieves a Video by the ID. This retrieves extra information so will only work
