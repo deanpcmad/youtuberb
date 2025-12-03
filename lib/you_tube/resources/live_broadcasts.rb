@@ -13,8 +13,8 @@ module YouTube
 
       response = get_request("liveBroadcasts", params: params)
 
-      next_callback = ->(token) { list(status: status, page_token: token, **options) }
-      prev_callback = ->(token) { list(status: status, page_token: token, **options) }
+      next_callback = ->(token) { list(status: status, pageToken: token, **options.except(:pageToken)) }
+      prev_callback = ->(token) { list(status: status, pageToken: token, **options.except(:pageToken)) }
 
       Collection.from_response(
         response,

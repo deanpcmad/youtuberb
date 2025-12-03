@@ -29,8 +29,8 @@ module YouTube
       params = {myRating: "like", part: PARTS}.merge(options)
       response = get_request "videos", params: params
 
-      next_callback = ->(token) { liked(page_token: token, **options) }
-      prev_callback = ->(token) { liked(page_token: token, **options) }
+      next_callback = ->(token) { liked(pageToken: token, **options.except(:pageToken)) }
+      prev_callback = ->(token) { liked(pageToken: token, **options.except(:pageToken)) }
 
       Collection.from_response(
         response,

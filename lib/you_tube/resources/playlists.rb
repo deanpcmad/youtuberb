@@ -2,7 +2,7 @@ module YouTube
   class PlaylistsResource < Resource
 
     PARTS = "id,snippet,status"
-    
+
     # Returns Playlists either for a Channel or owned by the authenticated user
     # https://developers.google.com/youtube/v3/docs/playlists/list
     def list(channel_id: nil, page_token: nil, max_results: nil)
@@ -13,7 +13,7 @@ module YouTube
         attrs[:mine] = true
       end
       attrs[:maxResults] = max_results if max_results
-      attrs[:pageToken]  = page_token  if page_token
+      attrs[:pageToken] = page_token if page_token
 
       response = get_request "playlists", params: attrs.merge({part: PARTS})
 

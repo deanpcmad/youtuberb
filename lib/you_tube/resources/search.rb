@@ -5,8 +5,8 @@ module YouTube
       request_params = {part: "id,snippet"}.merge(params)
       response = get_request "search", params: request_params
 
-      next_callback = ->(token) { list(page_token: token, **params) }
-      prev_callback = ->(token) { list(page_token: token, **params) }
+      next_callback = ->(token) { list(pageToken: token, **params.except(:pageToken)) }
+      prev_callback = ->(token) { list(pageToken: token, **params.except(:pageToken)) }
 
       Collection.from_response(
         response,

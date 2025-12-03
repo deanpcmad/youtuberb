@@ -9,8 +9,8 @@ module YouTube
       params = {playlistId: playlist_id, part: PARTS}.merge(options)
       response = get_request "playlistItems", params: params
 
-      next_callback = ->(token) { list(playlist_id: playlist_id, page_token: token, **options) }
-      prev_callback = ->(token) { list(playlist_id: playlist_id, page_token: token, **options) }
+      next_callback = ->(token) { list(playlist_id: playlist_id, pageToken: token, **options.except(:pageToken)) }
+      prev_callback = ->(token) { list(playlist_id: playlist_id, pageToken: token, **options.except(:pageToken)) }
 
       Collection.from_response(
         response,

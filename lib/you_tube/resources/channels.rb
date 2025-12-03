@@ -29,8 +29,8 @@ module YouTube
       params = {channelId: id, part: "id,snippet"}.merge(options)
       response = get_request "search", params: params
 
-      next_callback = ->(token) { videos(id: id, page_token: token, **options) }
-      prev_callback = ->(token) { videos(id: id, page_token: token, **options) }
+      next_callback = ->(token) { videos(id: id, pageToken: token, **options.except(:pageToken)) }
+      prev_callback = ->(token) { videos(id: id, pageToken: token, **options.except(:pageToken)) }
 
       Collection.from_response(
         response,
